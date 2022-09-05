@@ -20,7 +20,7 @@ namespace TestWPFProject.ViewModels.Base
             }
 
             field = value;
-            OnPropertyChanged();
+            OnPropertyChanged(PropertyName);
 
             return true;
         }
