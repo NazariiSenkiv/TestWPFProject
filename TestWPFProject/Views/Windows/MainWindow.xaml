@@ -7,6 +7,7 @@
         xmlns:vm="clr-namespace:TestWPFProject.ViewModels"
         xmlns:fa="http://schemas.fontawesome.com/icons/"
         xmlns:cmd="clr-namespace:TestWPFProject.Infrastructure.Commands"
+        xmlns:oxy="http://oxyplot.org/wpf"
         xmlns:local="clr-namespace:TestWPFProject"
         Title="{Binding Title}" 
         Height="450" Width="800">
@@ -79,7 +80,18 @@
 
                 </Grid>
             </TabItem>
-            <TabItem Header="Tab 2"></TabItem>
+            <TabItem Header="Chart">
+                <oxy:Plot>
+                    <oxy:Plot.Axes>
+                        <oxy:LinearAxis Position="Left"/>
+                        <oxy:LinearAxis Position="Bottom"/>
+                    </oxy:Plot.Axes>
+                    <oxy:LineSeries Color="Blue"
+                                    ItemsSource="{Binding TestDataPoints}"
+                                    DataFieldX="X"
+                                    DataFieldY="Y"/>
+                </oxy:Plot>
+            </TabItem>
         </TabControl>
     </DockPanel>
 </Window>
