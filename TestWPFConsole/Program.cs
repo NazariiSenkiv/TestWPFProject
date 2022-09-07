@@ -29,7 +29,7 @@ namespace TestWPFConsole
             {
                 var line = dataReader.ReadLine();
                 if (string.IsNullOrWhiteSpace(line)) continue;
-                yield return line;
+                yield return line.Replace("Korea,", "Korea -").Replace("Bonaire,", "Bonaire");
             }
         }
 
@@ -39,6 +39,22 @@ namespace TestWPFConsole
             .Skip(4)
             .Select(x => DateTime.Parse(x, CultureInfo.InvariantCulture))
             .ToArray();
+
+        private static IEnumerable<(string Country, string Province, int[] Counts)> GetData()
+        {
+            var lines = GetDataLines()
+                .Skip(1)
+                .Select(line => line.Split(','));
+
+            foreach (var row in lines)
+            {
+                var province = row[0].Trim();
+                var countryName = row[1].Trim(' ', '"');
+                var counts = row.Skip(4).Select(int.Parse).ToArray();
+
+                yield return (countryName, province, counts);
+            }
+        }
 
         static void Main(string[] args)
         {
@@ -52,8 +68,12 @@ namespace TestWPFConsole
             //    Console.WriteLine(dataLine);
             //}
 
-            var dates = GetDates();
-            Console.WriteLine(string.Join("\n", dates));
+            //var dates = GetDates();
+            //Console.WriteLine(string.Join("\n", dates));
+
+            var ukrainData = GetData().First(x => x.Country.Equals("Ukraine", StringComparison.OrdinalIgnoreCase));
+
+            Console.WriteLine(string.Join("\n", GetDates().Zip(ukrainData.Counts, (date, count) => $"{date} - {count}")));
 
             Console.ReadLine();
         }
