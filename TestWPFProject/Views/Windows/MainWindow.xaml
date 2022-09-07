@@ -22,7 +22,7 @@
         </Menu>
         <StatusBar DockPanel.Dock="Bottom">
             <StatusBarItem MinWidth="150" MaxWidth="300">
-                <TextBlock Text="Time to Blue screen of death 75%"/>
+                <TextBlock Text="{Binding Status}"/>
             </StatusBarItem>
             <StatusBarItem>
                 <ProgressBar Width="120" Height="10" Value="75" Foreground="Blue"/>
