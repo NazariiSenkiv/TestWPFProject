@@ -72,7 +72,7 @@ namespace TestWPFProject.ViewModels
             for (var x = 0d; x < 360; x += step)
             {
                 const double radsInDeg = Math.PI / 180;
-                var y = Math.Sin(2 * Math.PI * x * radsInDeg);
+                var y = Math.Sin(x * radsInDeg);
 
                 dataPoints.Add(new DataPoint { X = x, Y = y });
             }
